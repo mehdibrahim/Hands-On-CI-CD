@@ -4,35 +4,27 @@ pipeline {
         maven 'maven_3_5_0'
     }
     stages{
-        stage('Build Maven'){
+        stage ('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Java-Techie-jt/devops-automation']]])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mehdibrahim/devops-automation']])
                 sh 'mvn clean install'
             }
         }
-        stage('Build docker image'){
+        stage ('Build Docker Image'){
             steps{
+                
                 script{
-                    sh 'docker build -t javatechie/devops-integration .'
+                    sh 'docker build -t mehdibrahim/devops-integration .'
                 }
             }
         }
         stage('Push image to Hub'){
             steps{
-                script{
-                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
-                   sh 'docker login -u javatechie -p ${dockerhubpwd}'
-
-}
-                   sh 'docker push javatechie/devops-integration'
-                }
-            }
-        }
-        stage('Deploy to k8s'){
-            steps{
-                script{
-                    kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'k8sconfigpwd')
-                }
+                withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerHubPwd')]) {
+                sh 'docker login -u mehdibrahim -p ${dockerHubPwd}'
+                sh 'docker push mehdibrahim/devops-integration'
+                    
+               }
             }
         }
     }
