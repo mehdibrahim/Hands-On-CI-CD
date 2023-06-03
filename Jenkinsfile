@@ -12,14 +12,14 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage ('Build Docker Image'){
+      /*  stage ('Build Docker Image'){
             steps{
                 
                 script{
                     sh 'docker build -t mehdibrahim/devops-integration .'
                 }
             }
-        }
+        }*/
         stage('Push image to Hub'){
             steps{
                 withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerHubPwd')]) {
