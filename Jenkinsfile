@@ -24,7 +24,7 @@ pipeline {
             steps{
                 withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerHubPwd')]) {
                 sh 'docker login -u mehdibrahim -p ${dockerHubPwd}'
-                sh 'docker push mehdibrahim/devops-integration:myFirstStep'
+                sh 'docker push mehdibrahim/devops-integration'
                     
                }
             }
