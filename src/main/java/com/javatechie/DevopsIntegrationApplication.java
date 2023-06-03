@@ -1,4 +1,4 @@
-package com.mehdibrahim;
+package com.javatechie;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ public class DevopsIntegrationApplication {
 
 	@GetMapping
 	public String message(){
-		return "here is mehdi brahim job";
+		return "welcome to javatechie";
 	}
 
 	public static void main(String[] args) {
